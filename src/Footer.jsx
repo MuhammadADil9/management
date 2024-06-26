@@ -1,5 +1,6 @@
 function Footer(){
-    return(<>
+    return(
+        <>
         <div>
         <p>All Right Reserved</p>
         </div>
