@@ -8,13 +8,11 @@ function Signup(){
             <div>
                 <h1>Login</h1>
                 <button onClick={()=>{
-                    navigate('/')
+                    navigate('/home')
                 }}>Sign In</button>
             </div>
         </>
     )
-
-
 }
 
 
