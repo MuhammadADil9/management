@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import "./assets/style.css"
+import "../assets/style.css"
 import { useState } from "react"
 
 function Taskbar(){

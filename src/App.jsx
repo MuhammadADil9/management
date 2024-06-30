@@ -1,6 +1,6 @@
 import './assets/App.css';
-import Header from './Header.jsx';
-import RouteerPath from '../routes/routes.jsx';
+import Header from './components/Header.jsx';
+import RouteerPath from './routes/routes.jsx';
 
 function App() {
   return (

@@ -14,7 +14,7 @@ const RouteerPath = () => {
       <Route path="home" element={<Landing />} />
       <Route path="dashboard" element={<Dashboard />}>
         <Route path="taskbar" element={<Taskbar />}>
-          <Route path="task/:taskId" element={<TaskComponent />} />
+          <Route path=':taskId' element={<TaskComponent />} />
         </Route>
       </Route>
       <Route path="*" element={<NoRoute />} />
