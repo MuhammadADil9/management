@@ -6,19 +6,23 @@ import Activities from '../components/Activities.jsx';
 import NoRoute from '../components/NoRoute.jsx';
 import Signup from '../components/Signup.jsx';
 import TaskComponent from '../components/task.jsx';
+import "../assets/style.css"
+
 
 const RouteerPath = () => {
   return (
+    <>
+    <div className="Router">
     <Routes>
-      <Route path="/" element={<Signup />} />
+      <Route path="/" element={<Signup/>} />
       <Route path="home" element={<Landing />} />
       <Route path="dashboard" element={<Dashboard />}>
-        <Route path="taskbar" element={<Taskbar />}>
           <Route path=':taskId' element={<TaskComponent />} />
-        </Route>
       </Route>
       <Route path="*" element={<NoRoute />} />
     </Routes>
+    </div>
+    </>
   );
 }
 

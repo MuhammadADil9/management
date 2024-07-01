@@ -1,7 +1,9 @@
+import "../assets/NavFot.css"
+
 function Footer(){
     return(
         <>
-        <div>
+        <div className="footer">
         <p>All Right Reserved</p>
         </div>
         </>
