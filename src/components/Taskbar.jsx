@@ -1,47 +1,31 @@
-import { Outlet } from "react-router-dom";
-import "../assets/style.css"
-import { useState } from "react"
+// import { Outlet } from "react-router-dom";
+// import "../assets/style.css";
+// import { useState } from "react";
+// import { taskContext } from "./Dashboard";
+// import { useContext } from "react";
+// import { useEffect } from "react";
+// import { div } from "three/examples/jsm/nodes/Nodes.js";
 
-function Taskbar(){
-   
-   const [task,setTask] = useState("");
-   const [activities,setActivities] = useState([])
-   
+// function Taskbar() {
+//   const { taskArr } = useContext(taskContext);
+//   const [Elem, setElem] = useState([]);
 
-   const addElement = () => {
+//   useEffect(() => {
+//     setElem(taskArr);
+//   }, [taskArr]);
 
-      const newElement = (
-      
-         <h1>{task}</h1>
-      
-      )
+//   return (
+//     <>
+//       <div className="sidebar">
+//         <h2>Tasks</h2>
+//         <div>{Elem.map((indElem, index) => {
+//          <div className={index}>
+//             <h1>{indElem}</h1>
+//          </div>
+//         })}</div>
+//       </div>
+//     </>
+//   );
+// }
 
-      setActivities([...activities, newElement])
-      setTask("")
-   }
-
-
-   return(
-   <>
-    <div className="sidebar">
-      
-   <label htmlFor="task">Task</label>
-   <input type="text" name="task" id="task" value={task} onChange={(e)=>setTask(e.target.value)}/>
-   <br/>
-   <button onClick={addElement}>Add</button>
-      
-      <div className="tasks">
-             {activities.map((activity, index) => (
-             <div key={index}>{activity}</div>
-            ))}
-      </div>
-   
-    </div>
-    
-    <Outlet/>
-
-    </>
-   )
-}
-
-export default Taskbar
+// export default Taskbar;

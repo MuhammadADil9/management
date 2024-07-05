@@ -1,11 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import Landing from '../components/Landing.jsx';
-import Dashboard from '../components/Dashboard.jsx';
-import Taskbar from '../components/Taskbar.jsx';
-import Activities from '../components/Activities.jsx';
+import {Dashboard} from '../components/Dashboard.jsx';
 import NoRoute from '../components/NoRoute.jsx';
 import Signup from '../components/Signup.jsx';
-import TaskComponent from '../components/task.jsx';
 import "../assets/style.css"
 
 
@@ -17,7 +14,6 @@ const RouteerPath = () => {
       <Route path="/" element={<Signup/>} />
       <Route path="home" element={<Landing />} />
       <Route path="dashboard" element={<Dashboard />}>
-          <Route path=':taskId' element={<TaskComponent />} />
       </Route>
       <Route path="*" element={<NoRoute />} />
     </Routes>
@@ -27,3 +23,5 @@ const RouteerPath = () => {
 }
 
 export default RouteerPath;
+
+{/* <Route path=':taskId' element={<TaskComponent />} /> */}
