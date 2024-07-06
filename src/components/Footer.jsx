@@ -1,6 +1,8 @@
-import "../assets/NavFot.css"
+import React from "react";
+import { memo } from "react";
 
-function Footer(){
+
+const Footer = React.memo(() =>{
     return(
         <>
         <div className="footer">
@@ -8,6 +10,6 @@ function Footer(){
         </div>
         </>
     )
-}
+})
 
 export default Footer;

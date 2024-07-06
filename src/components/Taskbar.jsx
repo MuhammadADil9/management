@@ -1,31 +1,42 @@
-// import { Outlet } from "react-router-dom";
-// import "../assets/style.css";
-// import { useState } from "react";
-// import { taskContext } from "./Dashboard";
-// import { useContext } from "react";
-// import { useEffect } from "react";
-// import { div } from "three/examples/jsm/nodes/Nodes.js";
+import { Outlet, useNavigate, Link } from "react-router-dom";
+import "../assets/style.css";
+import { useState, useEffect, useContext } from "react";
+import { taskContext } from "./Dashboard";
 
-// function Taskbar() {
-//   const { taskArr } = useContext(taskContext);
-//   const [Elem, setElem] = useState([]);
 
-//   useEffect(() => {
-//     setElem(taskArr);
-//   }, [taskArr]);
+function Taskbar() {
+  const taskArr = useContext(taskContext);
+  const [Elem, setElem] = useState([]);
+  const navigation = useNavigate();
 
-//   return (
-//     <>
-//       <div className="sidebar">
-//         <h2>Tasks</h2>
-//         <div>{Elem.map((indElem, index) => {
-//          <div className={index}>
-//             <h1>{indElem}</h1>
-//          </div>
-//         })}</div>
-//       </div>
-//     </>
-//   );
-// }
+  useEffect(() => {
+    setElem(taskArr);
+  }, [taskArr]);
 
-// export default Taskbar;
+  return (
+    <>
+      <div className="sidebar">
+        <button>
+          <Link to="/dashboard">
+          <h2>Tasks</h2>
+          </Link>
+        </button>
+        <div>
+          {Elem.map((indElem, index) => (
+            <div key={index}>
+              <button
+                onClick={() => {
+                  navigation(`/dashboard/${indElem}`);
+                }}
+              >
+                <h1>{indElem}</h1>
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default Taskbar;
