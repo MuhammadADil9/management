@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import "../assets/style.css";
 import { useParams } from "react-router-dom";
 
 const Task = () => {
   const { taskID } = useParams();
-  const [points, setPoints] = useState("");
-  const [pointList, setPointList] = useState([]);
+  const description = useRef()
+  //const [points, setPoints] = useState("");
+  const [descriptionArr, SetDescriptionArr] = useState([]);
 
-  const addPointer = () => {
-    console.log("click");
-    setPointList([...pointList, points]);
-    setPoints(""); // Clear input field after adding point
+  const addPoint = () => {
+    const val = description.current.value;
+    SetDescriptionArr([...descriptionArr, val]);
+    description.current.value = ""
   };
 
   return (
@@ -19,7 +20,7 @@ const Task = () => {
         <h1>{taskID}</h1>
         <div>
           <ul className="points">
-            {pointList.map((point, index) => (
+            {descriptionArr.map((point, index) => (
               <li key={index}>{point}</li>
             ))}
           </ul>
@@ -30,10 +31,9 @@ const Task = () => {
           type="text"
           name="description"
           id="description"
-          value={points}
-          onChange={(e) => setPoints(e.target.value)}
+          ref={description}
         />
-        <button onClick={addPointer}>Submit</button>
+        <button onClick={addPoint}>Submit</button>
       </div>
     </>
   );

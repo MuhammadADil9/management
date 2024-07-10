@@ -1,34 +1,46 @@
 import { Outlet } from "react-router-dom";
 import Taskbar from "./Taskbar";
-import { useState } from "react";
-import { createContext } from "react";
+import { useState,createContext,useRef } from "react";
 
-const taskContext = createContext();
 
-function Dashboard() {
 
-  const [task, SetTask] = useState("");
+//const TaskContext = createContext();
+
+function DashBoard() {
+
+  // const [task, SetTask] = useState("");
   const [taskArr, settaskArr] = useState([])
+  const inpVal = useRef("")
 
   const addTask = () => {
-    console.log("button is working")
-    console.log(task)
-    settaskArr([...taskArr, task]);
-    SetTask("")
+    let val = inpVal.current.value
+    settaskArr([...taskArr, val]);
+    
+    fetch("http://localhost:5175/addtask",{
+      method:"POST",
+      headers:{
+        "Content-Type" : "application/Json"
+      },
+      body : JSON.stringify({val}),
+    })
+    .then((response)=>response.json())
+    .then((data)=>console.log(data))
+    .catch((error)=>console.log(error))
+    
+    inpVal.current.value = ""
   };
 
   return (
     <>
-      <taskContext.Provider value={taskArr}>
-        <Taskbar />
-      </taskContext.Provider>
+        <Taskbar value={taskArr}/>
+      
 
       <div>
         <h1>Schedule Your day</h1>
         <br />
         <label htmlFor="">Your Task is Awaiting</label>
         <br />
-        <input type="text" name="task" id="task" onChange={(e)=>SetTask(e.target.value)} />
+        <input type="text" name="task" id="task" ref={inpVal} />
         <button onClick={addTask}>Submit</button>
       </div>
       <Outlet />
@@ -36,4 +48,7 @@ function Dashboard() {
   );
 }
 
-export {Dashboard, taskContext}
+export default DashBoard
+
+
+

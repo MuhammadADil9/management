@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Landing from "../components/Landing.jsx";
-import { Dashboard } from "../components/Dashboard.jsx";
+import  DashBoard  from "../components/Dashboard.jsx";
 import NoRoute from "../components/NoRoute.jsx";
 import Signup from "../components/Signup.jsx";
 import Task from "../components/task.jsx";
@@ -13,7 +13,7 @@ const RouteerPath = () => {
         <Routes>
           <Route path="/" element={<Signup />} />
           <Route path="home" element={<Landing />} />
-          <Route path="dashboard" element={<Dashboard />}>
+          <Route path="dashboard" element={<DashBoard />}>
             <Route path=":taskID" element={<Task/>} />
           </Route>
           <Route path="*" element={<NoRoute />} />

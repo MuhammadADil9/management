@@ -1,35 +1,35 @@
 import { Outlet, useNavigate, Link } from "react-router-dom";
 import "../assets/style.css";
 import { useState, useEffect, useContext } from "react";
-import { taskContext } from "./Dashboard";
+// import { TaskContext } from "./Dashboard";
 
 
-function Taskbar() {
-  const taskArr = useContext(taskContext);
-  const [Elem, setElem] = useState([]);
+function Taskbar({value}) {
+  // const taskArr = useContext(TaskContext);
+  const [importedTasks, setImportedTask] = useState([]);
   const navigation = useNavigate();
 
   useEffect(() => {
-    setElem(taskArr);
-  }, [taskArr]);
+    setImportedTask(value);
+  }, [value]);
 
   return (
     <>
       <div className="sidebar">
-        <button>
-          <Link to="/dashboard">
+        <button onClick={()=>{
+          navigation("dashboard")
+        }} >
           <h2>Tasks</h2>
-          </Link>
         </button>
         <div>
-          {Elem.map((indElem, index) => (
+          {importedTasks.map((iteratedElem, index) => (
             <div key={index}>
               <button
                 onClick={() => {
-                  navigation(`/dashboard/${indElem}`);
+                  navigation(`/dashboard/${iteratedElem}`);
                 }}
               >
-                <h1>{indElem}</h1>
+                <h1>{importedTasks}</h1>
               </button>
             </div>
           ))}
