@@ -1,39 +1,30 @@
 import { Outlet } from "react-router-dom";
 import Taskbar from "./Taskbar";
-import { useState,createContext,useRef } from "react";
-
-
+import { useState, createContext, useRef, useEffect } from "react";
 
 //const TaskContext = createContext();
 
 function DashBoard() {
-
-  // const [task, SetTask] = useState("");
-  const [taskArr, settaskArr] = useState([])
-  const inpVal = useRef("")
+  const [taskArray, settaskArray] = useState([]);
+  const inpVal = useRef("");
 
   const addTask = () => {
-    let val = inpVal.current.value
-    settaskArr([...taskArr, val]);
-    
-    fetch("http://localhost:5175/addtask",{
-      method:"POST",
-      headers:{
-        "Content-Type" : "application/Json"
-      },
-      body : JSON.stringify({val}),
-    })
-    .then((response)=>response.json())
-    .then((data)=>console.log(data))
-    .catch((error)=>console.log(error))
-    
-    inpVal.current.value = ""
+    let value = inpVal.current.value;
+    if (value) {
+      console.log("Input Value :- ", value);
+      const newTaskObject = { [value]: [] }; // Each key is initialized with an empty array
+      settaskArray([...taskArray, newTaskObject]);
+      inpVal.current.value = "";
+    }
   };
+
+  useEffect(() => {
+    console.log("Updated Array:", taskArray);
+  }, [taskArray]); // This useEffect will run whenever 'a' changes
 
   return (
     <>
-        <Taskbar value={taskArr}/>
-      
+      <Taskbar value={taskArray} />
 
       <div>
         <h1>Schedule Your day</h1>
@@ -48,7 +39,19 @@ function DashBoard() {
   );
 }
 
-export default DashBoard
+export default DashBoard;
 
+// fetch("http://localhost:5175/addtask",{
+//   method:"POST",
+//   headers:{
+//     "Content-Type" : "application/Json"
+//   },
+//   body : JSON.stringify({val}),
+// })
+// .then((response)=>response.json())
+// .then((data)=>console.log(data))
+// .catch((error)=>console.log(error))
 
-
+// settaskArray([{ val: [] }]);
+// console.log("New Object",newTaskObject);
+// console.log("Array Task",taskArray);

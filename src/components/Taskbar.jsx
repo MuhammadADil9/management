@@ -1,13 +1,11 @@
-import { Outlet, useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import React from "react";
 import "../assets/style.css";
-import { useState, useEffect, useContext } from "react";
-// import { TaskContext } from "./Dashboard";
 
-
-function Taskbar({value}) {
-  // const taskArr = useContext(TaskContext);
+const Taskbar = React.memo(({ value }) => {
   const [importedTasks, setImportedTask] = useState([]);
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setImportedTask(value);
@@ -16,27 +14,29 @@ function Taskbar({value}) {
   return (
     <>
       <div className="sidebar">
-        <button onClick={()=>{
-          navigation("dashboard")
-        }} >
+        <button onClick={() => navigate("/dashboard")}>
           <h2>Tasks</h2>
         </button>
         <div>
-          {importedTasks.map((iteratedElem, index) => (
-            <div key={index}>
-              <button
-                onClick={() => {
-                  navigation(`/dashboard/${iteratedElem}`);
-                }}
-              >
-                <h1>{importedTasks}</h1>
-              </button>
-            </div>
-          ))}
+          {importedTasks.map((indexedKey,index)=>(
+            <button key={index} onClick={()=>{navigate(`/dashboard/${Object.keys(indexedKey)}`)}} >
+              {Object.keys(indexedKey)}
+            </button>
+          ))}       
         </div>
       </div>
     </>
   );
-}
+});
 
 export default Taskbar;
+
+// {importedTasks.map((iteratedElem, index) => (
+//   Object.keys(iteratedElem).map((key) => (
+//     <button key={index} onClick={() => navigate(`/dashboard/${key}`)} id={key}>
+//       <h1>{key}</h1>
+//     </button>
+//   ))
+// ))}
+
+
