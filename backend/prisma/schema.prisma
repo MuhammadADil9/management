@@ -18,3 +18,28 @@ datasource db {
 //2nd of current tasks
 //3rd og history
 
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique
+  password String
+  time     DateTime @default(now())
+  tasks    Task[]
+}
+
+model Task {
+  id      Int      @id @default(autoincrement())
+  heading String   @unique
+  time    DateTime @default(now())
+  userId    Int
+  user  User     @relation(fields: [userId], references: [id])
+  todos   Todo[]
+}
+
+model Todo {
+  id     Int      @id @default(autoincrement())
+  points String
+  taskid Int
+  time   DateTime @default(now())
+  tasks  Task     @relation(fields: [taskid], references: [id])
+}
