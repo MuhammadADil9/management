@@ -12,6 +12,6 @@ app.use("/api/auth",authentication)
 // app.use(express.json())
 
 
-app.listen(5000,()=>{
+app.listen(5500,()=>{
     console.log("Welcome to the programm")    
 })
