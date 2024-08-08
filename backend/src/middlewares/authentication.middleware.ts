@@ -49,15 +49,24 @@ const checkCredentials = async (
 // > Then create a token and send it into the cookies of the user
 
 const LogInCheck = async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
-
-  const user = await prisma.user.findUnique({ where: email });
-
   try {
+    const { email, password } = req.body;
+    console.log(email, password);
+
+    if (!email || !password) {
+      res.status(401).json({ message: "fields undefined!" });
+      return
+    }
+
+    const user = await prisma.user.findUnique({ where: {
+      email : email
+    } });
+
     //verifying that the user actually exist
 
     if (!user) {
-      res.status(404).json({ message: "User Doesn't exist" });
+      res.status(401).json({ message: "User Doesn't exist" });
+      return
     }
 
     const passwordVerification = await bs.compare(password, user?.password!);
@@ -68,12 +77,13 @@ const LogInCheck = async (req: Request, res: Response, next: NextFunction) => {
       res
         .status(401)
         .send({ message: "Incorrect Password! Please enter correct password" });
-    }
-
+        return
+      }
+    console.log("log In middleware is working")
     next();
   } catch (error: any) {
-    res.status(404).json({ message: error });
+    res.status(404).json({message : "bad requests"});
   }
 };
 
-export default checkCredentials;
+export { checkCredentials, LogInCheck };

@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken"
 import { response, Response } from "express"      
-import { number } from "zod"
 import dotenv from "dotenv"
 dotenv.config()
 

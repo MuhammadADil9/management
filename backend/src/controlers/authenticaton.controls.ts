@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import checkCredentials from "../middlewares/authentication.middleware";
 import prisma from "../database/db.prisma";
 import bs from "bcryptjs";
 import generateToken from "../token/jwt.token";
@@ -47,18 +46,60 @@ const signup = async (req: Request, res: Response) => {
 // > Then create a token and send it into the cookies of the user
 
 const login = async (req: Request, res: Response) => {
-  const { email } = req.body;
-
   try {
-    const user = await prisma.user.findUnique({ where: email });
-    let token = await generateToken(user?.id!, res);
+    const { email } = req.body;
 
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    let token = await generateToken(user?.id!, res);
+    console.log("login request ran");
     res.status(200).json({ message: "Logged In Successfully", token: token });
   } catch (error: any) {
-    res.status(404).json({ message: error });
+    res.status(404).json({ message: "login :- bad server request" });
   }
 };
 
-const logout = async (req: Request, res: Response) => {};
+// Send a cookie with null data
+// THe cookie should be expiring the very time
+// const logout = async (req: Request, res: Response) => {
+//   try {
+//     const { token } = req.cookies;
+//     if (!token) {
+//         return res.sendStatus(401).json({ message: "invalid Action !" });
+//     }
+//     res.cookie("token", "", { maxAge: 0, httpOnly: true });
+//     console.log("logged out successfully");
+//     res.sendStatus(200).json({ message: "Logged Out Successfully" });
+//     return;
+//   } catch (error: any) {
+//     res.status(500).json({ message: "bad request" });
+//   }
+// };
+
+const logout = async (req: Request, res: Response) => {
+    try {
+      const { token } = req.cookies;
+  
+      if (!token) {
+        // Send the response and return immediately to prevent further execution
+        return res.status(401).json({ message: "Invalid Action!" });
+      }
+  
+      // Set the token cookie to expire immediately
+      res.cookie("token", "", { maxAge: 0, httpOnly: true });
+  
+      console.log("logged out successfully");
+  
+      // Send a success response and return
+      return res.status(200).json({ message: "Logged Out Successfully" });
+    } catch (error: any) {
+      // Handle errors and send an error response
+      return res.status(500).json({ message: "Bad Request" });
+    }
+  };
+  
 
 export { signup, login, logout };
